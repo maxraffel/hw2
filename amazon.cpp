@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
 
                 // doesn't check if second argument is actually a number
                 if (!ds.userExists(terms[0]) || invalidArgs) {
-                    cout << "Invalid request";
+                    cout << "Invalid input";
                     continue;
                 }
 
@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
                 }
 
                 if (terms.size() == 0 || !ds.userExists(terms[0])) {
-                    cout << "Invalid request";
+                    cout << "Invalid input";
                     continue;
                 }
                 vector<Product*> cart = ds.getCart(terms[0]);
@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
                 }
 
                 if (terms.size() == 0 || !ds.userExists(terms[0])) {
-                    cout << "Invalid request";
+                    cout << "Invalid input";
                     continue;
                 }
 
