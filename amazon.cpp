@@ -119,13 +119,14 @@ int main(int argc, char* argv[])
                     invalidArgs = true;
                 }
 
-                if (!ds.validHitIndex(hit_index)) {
-                    invalidArgs = true;
+                if (!ds.validHitIndex(hit_index) || invalidArgs) {
+                    cout << "Invalid index" << endl;
+                    continue;
                 }
 
                 // doesn't check if second argument is actually a number
-                if (!ds.userExists(terms[0]) || invalidArgs) {
-                    cout << "Invalid input";
+                if (!ds.userExists(terms[0])) {
+                    cout << "Invalid username";
                     continue;
                 }
 
@@ -143,7 +144,7 @@ int main(int argc, char* argv[])
                 }
 
                 if (terms.size() == 0 || !ds.userExists(terms[0])) {
-                    cout << "Invalid input";
+                    cout << "Invalid username";
                     continue;
                 }
                 vector<Product*> cart = ds.getCart(terms[0]);
@@ -162,7 +163,7 @@ int main(int argc, char* argv[])
                 }
 
                 if (terms.size() == 0 || !ds.userExists(terms[0])) {
-                    cout << "Invalid input";
+                    cout << "Invalid username";
                     continue;
                 }
 
