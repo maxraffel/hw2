@@ -4,9 +4,11 @@
 using namespace std;
 
 void MyDataStore::addProduct(Product* p) {
+    cout << p->displayString() << endl;
     set<string> keywords = p->keywords();
     for (set<string>::iterator it = keywords.begin(); it != keywords.end(); ++it) {
         products[*it].insert(p);
+        cout << "Inserting at " << *it << endl;
     }
 }
 
@@ -17,7 +19,11 @@ void MyDataStore::addUser(User* u) {
 vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) {
     set<Product*> result;
     if (type == 0) {
-        if (terms.size() == 0) return vector<Product*>();
+        if (terms.size() == 0) {
+            prevSearch = vector<Product*>();
+            return vector<Product*>();
+        }
+        
         result = products[terms[0]];
         for (size_t i = 1; i < terms.size(); i++) {
             result = setIntersection(result, products[terms[i]]);
@@ -35,9 +41,11 @@ vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) 
 
     vector<Product*> resultVec;
 
-    for (set<Product*>::iterator it = result.begin(); it != result.begin(); ++it) {
+    for (set<Product*>::iterator it = result.begin(); it != result.end(); ++it) {
         resultVec.push_back(*it);
+        cout << (*it)->displayString() << endl;
     }
+
     prevSearch = resultVec;
     return resultVec;
 }
@@ -50,12 +58,13 @@ bool MyDataStore::userExists(string username) {
     return users.find(username) != users.end();
 }
 
-void MyDataStore::addToCart(size_t hit_index, std::string username) {
-    carts[username].push_back(prevSearch[hit_index]);
+void MyDataStore::addToCart(Product* p, std::string username) {
+    carts[username].push_back(p);
+    
 }
 
 void MyDataStore::buyCart(std::string username) {
-    vector<Product*> cart = carts[username];
+    vector<Product*>& cart = carts[username];
     User* u = users[username];
     
     size_t index = 0;
@@ -65,6 +74,7 @@ void MyDataStore::buyCart(std::string username) {
         if (price <= u->getBalance() && qty > 0) {
             u->deductAmount(price);
             cart[index]->subtractQty(1);
+            cart.erase(cart.begin() + index);
         } else {
             index++;
         }
@@ -72,6 +82,26 @@ void MyDataStore::buyCart(std::string username) {
 }
 
 bool MyDataStore::validHitIndex(size_t index) {
-    if (prevSearch.size() == 0) return 0;
+    if (prevSearch.size() == 0) return false;
     else return (prevSearch.size() > index && index >= 0);
+}
+
+void MyDataStore::dump(std::ostream& ofile) {
+    ofile << "<products>\n";
+    set<Product*> allProducts;
+    for (std::map<std::string, std::set<Product*>>::iterator it = products.begin(); it != products.end(); ++it) {
+        allProducts = setUnion(allProducts, it->second);
+    }
+
+    for (set<Product*>::iterator it = allProducts.begin(); it != allProducts.end(); ++it) {
+        (*it)->dump(ofile);
+    }
+
+    ofile << "</products>\n";
+    ofile << "<users>\n";
+
+    for (std::map<std::string, User*>::iterator it = users.begin(); it != users.end(); ++it) {
+        (*it).second->dump(ofile);
+    }
+    ofile << "</users>" << endl;
 }

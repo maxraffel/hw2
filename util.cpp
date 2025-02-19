@@ -18,7 +18,7 @@ std::set<std::string> parseStringToWords(string rawWords)
   set<string> result;
   string keyWord = "";
   for (size_t i = 0; i < rawWords.length(); i++) {
-    if (ispunct(rawWords[i])) {
+    if (ispunct(rawWords[i]) || rawWords[i] == ' ') {
       if (keyWord.length() >= 2) result.insert(keyWord);
       keyWord = "";
     } else {

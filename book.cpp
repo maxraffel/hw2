@@ -12,7 +12,7 @@ Book::Book(const std::string category, const std::string name, double price, int
 
 void Book::dump(std::ostream& os) const {
     Product::dump(os);
-    os << "\n" << isbn_ << "\n" << author_;
+    os << isbn_ << "\n" << author_;
 }
 
 std::set<std::string> Book::keywords() const {

@@ -113,9 +113,13 @@ int main(int argc, char* argv[])
                 int hit_index;
 
                 try {
-                    hit_index = stoi(terms[1]);
+                    hit_index = stoi(terms[1]) - 1;
                     invalidArgs = false;
                 } catch (string err) {
+                    invalidArgs = true;
+                }
+
+                if (!ds.validHitIndex(hit_index)) {
                     invalidArgs = true;
                 }
 
@@ -125,7 +129,7 @@ int main(int argc, char* argv[])
                     continue;
                 }
 
-                ds.addToCart(hit_index, terms[0]);
+                ds.addToCart(hits[hit_index], terms[0]);
 
 
 
