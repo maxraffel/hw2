@@ -12,7 +12,7 @@ Movie::Movie(const std::string category, const std::string name, double price, i
 
 void Movie::dump(std::ostream& os) const {
     Product::dump(os);
-    os << genre_ << "\n" << rating_;
+    os << genre_ << "\n" << rating_ << endl;
 }
 
 std::set<std::string> Movie::keywords() const {

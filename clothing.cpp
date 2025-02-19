@@ -12,7 +12,7 @@ Clothing::Clothing(const std::string category, const std::string name, double pr
 
 void Clothing::dump(std::ostream& os) const {
     Product::dump(os);
-    os << size_ << "\n" << brand_;
+    os << size_ << "\n" << brand_ << endl;
 }
 
 std::set<std::string> Clothing::keywords() const {
