@@ -1,6 +1,7 @@
 #include "clothing.h"
 #include "util.h"
 #include <set>
+#include <sstream>
 
 using namespace std;
 
@@ -24,9 +25,12 @@ std::set<std::string> Clothing::keywords() const {
 }
 
 std::string Clothing::displayString() const {
+    stringstream priceStream;
+    priceStream << price_;
+
     string result = "";
     result += name_ + "\n";
     result += "Size: " + size_ + " Brand: " + brand_ + "\n";
-    result += to_string(price_) + " " + to_string(qty_) + " left";
+    result += priceStream.str() + " " + to_string(qty_) + " left";
     return result;
 }

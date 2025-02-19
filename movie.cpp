@@ -1,6 +1,7 @@
 #include "movie.h"
 #include "util.h"
 #include <set>
+#include <sstream>
 
 using namespace std;
 
@@ -23,9 +24,12 @@ std::set<std::string> Movie::keywords() const {
 }
 
 std::string Movie::displayString() const {
+    stringstream priceStream;
+    priceStream << price_;
+
     string result = "";
     result += name_ + "\n";
     result += "Genre: " + genre_ + " Rating: " + rating_ + "\n";
-    result += to_string(price_) + " " + to_string(qty_) + " left";
+    result += priceStream.str() + " " + to_string(qty_) + " left";
     return result;
 }

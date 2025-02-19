@@ -79,6 +79,7 @@ void MyDataStore::addToCart(Product* p, std::string username) {
 void MyDataStore::buyCart(std::string username) {
     vector<Product*>& cart = carts[username];
     User* u = users[username];
+    vector<Product*> newCart;
     
     size_t index = 0;
     while (index < cart.size()) {
@@ -87,11 +88,12 @@ void MyDataStore::buyCart(std::string username) {
         if (price <= u->getBalance() && qty > 0) {
             u->deductAmount(price);
             cart[index]->subtractQty(1);
-            cart.erase(cart.begin() + index);
         } else {
-            index++;
+            newCart.push_back(cart[index]);
         }
+        index++;
     }
+    carts[username] = newCart;
 }
 
 bool MyDataStore::validHitIndex(size_t index) {

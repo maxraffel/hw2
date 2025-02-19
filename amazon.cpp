@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
                 vector<Product*> cart = ds.getCart(terms[0]);
 
                 for (size_t i = 0; i < cart.size(); i++) {
-                    cout << cart[i]->displayString() << endl;
+                    cout << i << endl << cart[i]->displayString() << endl;
                 }
 
 
