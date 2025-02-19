@@ -31,6 +31,6 @@ std::string Clothing::displayString() const {
     string result = "";
     result += name_ + "\n";
     result += "Size: " + size_ + " Brand: " + brand_ + "\n";
-    result += priceStream.str() + " " + to_string(qty_) + " left";
+    result += priceStream.str() + " " + to_string(qty_) + " left.";
     return result;
 }

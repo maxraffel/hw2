@@ -30,6 +30,6 @@ std::string Movie::displayString() const {
     string result = "";
     result += name_ + "\n";
     result += "Genre: " + genre_ + " Rating: " + rating_ + "\n";
-    result += priceStream.str() + " " + to_string(qty_) + " left";
+    result += priceStream.str() + " " + to_string(qty_) + " left.";
     return result;
 }

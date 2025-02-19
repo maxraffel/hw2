@@ -32,6 +32,6 @@ std::string Book::displayString() const {
     string result = "";
     result += name_ + "\n";
     result += "Author: " + author_ + " ISBN: " + isbn_ + "\n";
-    result += priceStream.str() + " " + to_string(qty_) + " left";
+    result += priceStream.str() + " " + to_string(qty_) + " left.";
     return result;
 }
