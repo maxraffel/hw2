@@ -56,7 +56,7 @@ vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) 
 
     for (set<Product*>::iterator it = result.begin(); it != result.end(); ++it) {
         resultVec.push_back(*it);
-        cout << (*it)->displayString() << endl;
+
     }
 
     prevSearch = resultVec;
