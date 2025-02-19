@@ -3,12 +3,25 @@
 
 using namespace std;
 
+MyDataStore::~MyDataStore() {
+    set<Product*> allProducts;
+    for (map<string, set<Product*>>::iterator it = products.begin(); it != products.end(); ++it) {
+        allProducts = setUnion(allProducts, (*it).second);
+    }
+
+    for (set<Product*>::iterator it = allProducts.begin(); it != allProducts.end(); ++it) {
+        delete *it;
+    }
+
+    for (map<string, User*>::iterator it = users.begin(); it != users.end(); ++it) {
+        delete (*it).second;
+    }
+}
+
 void MyDataStore::addProduct(Product* p) {
-    cout << p->displayString() << endl;
     set<string> keywords = p->keywords();
     for (set<string>::iterator it = keywords.begin(); it != keywords.end(); ++it) {
         products[*it].insert(p);
-        cout << "Inserting at " << *it << endl;
     }
 }
 
