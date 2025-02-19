@@ -9,6 +9,7 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -100,7 +101,70 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+            else if (cmd == "ADD") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    term = convToLower(term);
+                    terms.push_back(term);
+                }
 
+                bool invalidArgs;
+                int hit_index;
+
+                try {
+                    hit_index = stoi(terms[1]);
+                    invalidArgs = false;
+                } catch (string err) {
+                    invalidArgs = true;
+                }
+
+                // doesn't check if second argument is actually a number
+                if (!ds.userExists(terms[0]) || invalidArgs) {
+                    cout << "Invalid request";
+                    continue;
+                }
+
+                ds.addToCart(hit_index, terms[0]);
+
+
+
+
+            } else if (cmd == "VIEWCART") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    term = convToLower(term);
+                    terms.push_back(term);
+                }
+
+                if (terms.size() == 0 || !ds.userExists(terms[0])) {
+                    cout << "Invalid request";
+                    continue;
+                }
+                vector<Product*> cart = ds.getCart(terms[0]);
+
+                for (size_t i = 0; i < cart.size(); i++) {
+                    cout << i << ". " << cart[i]->displayString() << endl;
+                }
+
+
+            } else if (cmd == "BUYCART") {
+                string term;
+                vector<string> terms;
+                while(ss >> term) {
+                    term = convToLower(term);
+                    terms.push_back(term);
+                }
+
+                if (terms.size() == 0 || !ds.userExists(terms[0])) {
+                    cout << "Invalid request";
+                    continue;
+                }
+
+                ds.buyCart(terms[0]);
+
+            }
 
 
 
