@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
 
                 // doesn't check if second argument is actually a number
                 if (!ds.userExists(terms[0])) {
-                    cout << "Invalid username";
+                    cout << "Invalid request";
                     continue;
                 }
 
