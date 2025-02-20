@@ -26,12 +26,12 @@ std::set<std::string> Book::keywords() const {
 }
 
 std::string Book::displayString() const {
-    // stringstream priceStream;
-    // priceStream << price_;
+    stringstream priceStream;
+    priceStream << price_;
 
     string result = "";
     result += name_ + "\n";
     result += "Author: " + author_ + " ISBN: " + isbn_ + "\n";
-    result += to_string(price_) + " " + to_string(qty_) + " left.";
+    result += priceStream.str() + " " + to_string(qty_) + " left.\n";
     return result;
 }

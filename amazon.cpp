@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
                 vector<Product*> cart = ds.getCart(terms[0]);
 
                 for (size_t i = 0; i < cart.size(); i++) {
-                    cout << i + 1 << endl;
+                    cout << "Item " << i + 1 << endl;
                     cout << cart[i]->displayString() << endl;
                 }
 
