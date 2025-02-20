@@ -25,4 +25,5 @@ private:
     std::map<std::string, User*> users;
     std::map<std::string, std::vector<Product*>> carts;
     std::vector<Product*> prevSearch;
+    std::set<Product*> deleteList;
 };
