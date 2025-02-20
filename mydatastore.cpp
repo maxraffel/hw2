@@ -104,12 +104,12 @@ bool MyDataStore::validHitIndex(size_t index) {
 
 void MyDataStore::dump(std::ostream& ofile) {
     ofile << "<products>\n";
-    set<Product*> allProducts;
-    for (std::map<std::string, std::set<Product*>>::iterator it = products.begin(); it != products.end(); ++it) {
-        allProducts = setUnion(allProducts, it->second);
-    }
+    // set<Product*> allProducts;
+    // for (std::map<std::string, std::set<Product*>>::iterator it = products.begin(); it != products.end(); ++it) {
+    //     allProducts = setUnion(allProducts, it->second);
+    // }
 
-    for (set<Product*>::iterator it = allProducts.begin(); it != allProducts.end(); ++it) {
+    for (set<Product*>::iterator it = deleteList.begin(); it != deleteList.end(); ++it) {
         (*it)->dump(ofile);
     }
 
